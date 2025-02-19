@@ -1,11 +1,10 @@
 FROM node:latest
 
-RUN apt -y update && apt -y upgrade
+WORKDIR /app
+COPY package*.json .
 
-RUN apt -y install curl less vim zsh
 
-RUN yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN npm install 
+COPY . .
 
-RUN npm install -g npm@11.1.0
-
-CMD ["zsh"]
+CMD ["node", "server.js"]
